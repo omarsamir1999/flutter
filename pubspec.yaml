@@ -1,0 +1,72 @@
+name: elshodaa_mall
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  dots_indicator: ^3.0.0
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.7
+  font_awesome_flutter: ^10.5.0
+  google_fonts: ^5.1.0 
+  lottie: ^2.6.0
+  velocity_x: ^4.1.1
+  get: ^4.6.5
+  shared_preferences: ^2.2.0
+  http: ^1.1.0
+  rxdart: ^0.27.7
+  google_mobile_ads: ^3.0.0
+  
+  
+  
+
+  
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  
+  flutter_lints: ^2.0.2
+
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/icon/
+    - assets/anims/
+    - assets/icon/tabbar/bold/
+    - assets/icon/tabbar/light/
+    - assets/icon/light/
+    - assets/icon/bold/
+    - assets/icon/products/
+    - assets/icon/profile/
+    - assets/icon/detail/
+  fonts:
+      - family: Gilroy
+        fonts:
+          - asset: assets/fonts/Gilroy-ExtraBold.otf
+            weight: 900
+          - asset: assets/fonts/Gilroy-Light.otf
+            weight: 300
+
+

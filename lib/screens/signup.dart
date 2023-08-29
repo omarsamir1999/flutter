@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:elshodaa_mall/screens/profile_screen.dart';
+import 'package:flutter/services.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
@@ -39,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen>
       isLoading = true;
     });
 
-    final url = Uri.parse('http://18.217.249.168:8080/api/v1/auth/register');
+    final url = Uri.parse('http://18.218.84.231:8080/api/v1/auth/register');
     final body = jsonEncode({
       'email': email,
       'password': password,
@@ -149,14 +150,37 @@ class _SignUpScreenState extends State<SignUpScreen>
                   },
                 ),
                 12.heightBox,
-                PrimaryTextField(
-                  hintText: 'ألايميل',
-                  prefixIcon: Icons.email,
-                  onChanged: (value) {
-                    setState(() {
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                  elevation: 16,
+                  shadowColor: Colors.black54,
+                  child: TextFormField(
+                    validator: (val) =>
+                        val!.isEmpty || !val.contains("@gmail.com")
+                            ? "enter a valid eamil"
+                            : null,
+                    textAlign: TextAlign.right,
+                    onChanged: (value) => setState(() {
                       email = value;
-                    });
-                  },
+                    }),
+                    controller: null,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(top: 14),
+                        suffixIcon: Icon(
+                          Icons.email,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                        border: InputBorder.none,
+                        hintText: 'الايميل',
+                        hintStyle: const TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.normal)),
+                  ).px(12).py(2.5),
                 ),
                 12.heightBox,
                 PrimaryTextField(
@@ -180,14 +204,35 @@ class _SignUpScreenState extends State<SignUpScreen>
                   },
                 ),
                 12.heightBox,
-                PrimaryTextField(
-                  hintText: 'رقم الهاتف',
-                  prefixIcon: CupertinoIcons.phone_fill,
-                  onChanged: (value) {
-                    setState(() {
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                  elevation: 16,
+                  shadowColor: Colors.black54,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textAlign: TextAlign.right,
+                    onChanged: (value) => setState(() {
                       phone = value;
-                    });
-                  },
+                    }),
+                    controller: null,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(top: 14),
+                        suffixIcon: Icon(
+                          CupertinoIcons.phone_fill,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                        border: InputBorder.none,
+                        hintText: 'رقم الهاتف',
+                        hintStyle: const TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.normal)),
+                  ).px(12).py(2.5),
                 ),
                 12.heightBox,
                 const Text(

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:elshodaa_mall/constants/colors.dart';
 import 'package:elshodaa_mall/screens/ad_state.dart';
 import 'package:elshodaa_mall/screens/product_details_screen.dart';
 import 'package:http/http.dart' as http;
@@ -46,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     fetchProducts();
     initSharedPreferences();
     addAds(true);
+    adManager.showInterstitial();
   }
 
   Future<void> initSharedPreferences() async {
@@ -122,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     String token = _prefs.getString('token') ?? '';
     final url = Uri.parse(
-        'http://18.118.26.112:8080/api/v1/user/coins?coins=$newCoins');
+        'http://18.218.84.231:8080/api/v1/user/coins?coins=$newCoins');
 
     final response = await http.put(
       url,
@@ -154,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     String token = _prefs.getString('token') ?? '';
 
-    final url = Uri.parse('http://18.118.26.112:8080/api/v1/user');
+    final url = Uri.parse('http://18.218.84.231:8080/api/v1/user');
     final response = await http.get(
       url,
       headers: {'Authorization': 'Bearer $token'},
@@ -182,224 +184,248 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     print(userData['name']);
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8, left: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset(
-                  "assets/images/logo.png",
-                  height: 70,
-                  width: 150,
-                  fit: BoxFit.cover,
-                ),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          userData['name'] != null
-                              ? "${userData['name']} مرحبا"
-                              : "مرحبا",
-                          textAlign: TextAlign.right,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
+      child: Stack(children: [
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8, left: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    "assets/images/logo.png",
+                    height: 70,
+                    width: 150,
+                    fit: BoxFit.cover,
+                  ),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            userData['name'] != null
+                                ? "${userData['name']} مرحبا"
+                                : "مرحبا",
+                            textAlign: TextAlign.right,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            adManager.showInterstitial();
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: AlertDialog(
-                                    actions: [
-                                      IconButton(
-                                        icon: const Icon(Icons.close),
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .pop(); // Close the dialog
-                                        },
-                                      ),
-                                    ],
-                                    title: const Text(
-                                      'زود نقاطك',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.green),
-                                    ),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        const Center(
-                                          child:
-                                              Text('الاعلان الواحد = 5 نقاط'),
-                                        ),
-                                        const Center(
-                                          child: Text('عملية الشراء = 5 نقاط'),
-                                        ),
-                                        const SizedBox(height: 16),
-                                        ElevatedButton(
+                          GestureDetector(
+                            onTap: () {
+                              adManager.showInterstitial();
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: AlertDialog(
+                                      actions: [
+                                        IconButton(
+                                          icon: const Icon(Icons.close),
                                           onPressed: () {
-                                            showRewardedAd();
+                                            Navigator.of(context)
+                                                .pop(); // Close the dialog
                                           },
-                                          child: const Text('مشاهدة الإعلان'),
                                         ),
-                                        const SizedBox(height: 16),
-                                        BannerAdmob()
                                       ],
+                                      title: const Text(
+                                        'زود نقاطك',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.green),
+                                      ),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const Center(
+                                            child:
+                                                Text('الاعلان الواحد = 5 نقاط'),
+                                          ),
+                                          const Center(
+                                            child:
+                                                Text('عملية الشراء = 5 نقاط'),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              showRewardedAd();
+                                            },
+                                            child: const Text('مشاهدة الإعلان'),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          BannerAdmob()
+                                        ],
+                                      ),
                                     ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.monetization_on,
+                                  color: Colors.yellow,
+                                  size: 25.0,
+                                ),
+                                Text(
+                                  userData['coins'] != null
+                                      ? userData['coins'].toString()
+                                      : "0",
+                                  style: const TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 16.0,
                                   ),
-                                );
-                              },
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.monetization_on,
-                                color: Colors.yellow,
-                                size: 25.0,
-                              ),
-                              Text(
-                                userData['coins'] != null
-                                    ? userData['coins'].toString()
-                                    : "0",
-                                style: const TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 16.0,
                                 ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Text(
-                                ' نقاطي',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16.0,
+                                const SizedBox(width: 4),
+                                const Text(
+                                  ' نقاطي',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    GestureDetector(
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AccountPage(),
+                              ),
+                            );
+                            adManager.showInterstitial();
+                          },
+                          child: userData['gender'] == "انثي"
+                              ? const CircleAvatar(
+                                  backgroundColor: CustomColors.customGrey,
+                                  radius: 20,
+                                  backgroundImage: AssetImage(
+                                    "assets/images/pngwing.com.png",
+                                  ),
+                                )
+                              : const CircleAvatar(
+                                  backgroundColor: CustomColors.customGrey,
+                                  radius: 20,
+                                  backgroundImage: AssetImage(
+                                    "assets/images/pngwing.com (1).png",
+                                  ),
+                                )),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const ProductSearchWidget(),
+            const SizedBox(
+              height: 20,
+            ),
+            BannerAdmob(),
+            4.heightBox,
+            const Padding(
+              padding: EdgeInsets.all(17.0),
+              child: SpecialOffers(),
+            ),
+            12.heightBox,
+            const MostPopularTitleText(),
+            12.heightBox,
+            ..._products
+                .map((product) => GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const AccountPage(),
-                          ),
-                        );
-                        adManager.showInterstitial();
-                      },
-                      child: const CircleAvatar(
-                        radius: 20,
-                        backgroundImage: AssetImage(
-                          "assets/images/boy-icon-png-10.jpg",
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const ProductSearchWidget(),
-          const SizedBox(
-            height: 20,
-          ),
-          BannerAdmob(),
-          4.heightBox,
-          const Padding(
-            padding: EdgeInsets.all(17.0),
-            child: SpecialOffers(),
-          ),
-          12.heightBox,
-          const MostPopularTitleText(),
-          12.heightBox,
-          ..._products
-              .map((product) => GestureDetector(
-                    onTap: () {
-                      adManager.showInterstitial();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetailsScreen(
-                            productId: product.id,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(0.6),
-                                offset: const Offset(0, 50),
-                                spreadRadius: 2,
-                                blurRadius: 124),
-                          ]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                product.name,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "جنية " '${product.price.toStringAsFixed(2)} ',
-                                style: const TextStyle(
-                                    color: Colors.red, fontSize: 16),
-                              ),
-                              16.widthBox,
-                            ],
-                          ),
-                          12.widthBox,
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Container(
-                              width: 80,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Image.memory(
-                                base64Decode(product.image),
-                                fit: BoxFit.fill,
-                              ).p(8),
+                            builder: (context) => ProductDetailsScreen(
+                              productId: product.id,
                             ),
                           ),
-                        ],
-                      ).p(8),
-                    ).px(16),
-                  ))
-              .toList(),
-          BannerAdmob(),
-        ],
-      ).py(8),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  offset: const Offset(0, 50),
+                                  spreadRadius: 2,
+                                  blurRadius: 124),
+                            ]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductDetailsScreen(
+                                      productId: product.id,
+                                    ),
+                                  ),
+                                );
+                                adManager.showInterstitial();
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    product.name,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "جنية "
+                                    '${product.price.toStringAsFixed(2)} ',
+                                    style: const TextStyle(
+                                        color: Colors.red, fontSize: 16),
+                                  ),
+                                  16.widthBox,
+                                ],
+                              ),
+                            ),
+                            12.widthBox,
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Container(
+                                width: 80,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Image.network(
+                                  product.imageUrl,
+                                  fit: BoxFit.fill,
+                                ).p(8),
+                              ),
+                            ),
+                          ],
+                        ).p(8),
+                      ).px(16),
+                    ))
+                .toList(),
+            BannerAdmob(),
+          ],
+        ).py(8),
+      ]),
     );
   }
 }
@@ -427,6 +453,9 @@ class ProductSearchWidget extends StatefulWidget {
 
 class _ProductSearchWidgetState extends State<ProductSearchWidget> {
   final TextEditingController _searchController = TextEditingController();
+  void clearText() {
+    _searchController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -455,6 +484,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                               ),
                             ),
                           );
+                          clearText();
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -503,6 +533,7 @@ class SpecialOffers extends StatefulWidget {
 class _SpecialOffersState extends State<SpecialOffers> {
   final List<SpecialOffer> specials = homeSpecialOffers;
   bool isLoading = false; // إضافة حالة التحميل
+  final adManager = AdManager();
 
   int selectIndex = 0;
   int? categoryId;
@@ -513,6 +544,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
   void initState() {
     super.initState();
     _fetchCategories();
+    adManager.addAds(true, true, true);
   }
 
   Future<void> _fetchCategories() async {
@@ -573,7 +605,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
                     }
                     final data = _categories[index ~/ 2];
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         setState(() {
                           categoryId = data.id;
                         });
@@ -585,6 +617,8 @@ class _SpecialOffersState extends State<SpecialOffers> {
                             ),
                           ),
                         );
+                        // await AdsManager.loadUnityIntAd();
+                        adManager.showInterstitial();
                       },
                       child: Column(
                         children: [

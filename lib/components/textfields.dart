@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class PrimaryTextField extends StatefulWidget {
@@ -6,12 +7,14 @@ class PrimaryTextField extends StatefulWidget {
     this.hintText = '',
     this.prefixIcon,
     this.isObscure = false,
+    this. keyboardType,
     Key? key,
     required this.onChanged,
   }) : super(key: key);
   final IconData? prefixIcon;
   final String hintText;
   final bool isObscure;
+  final TextInputType? keyboardType;
   final Function onChanged;
 
   @override
@@ -30,6 +33,7 @@ class _PrimaryTextFieldState extends State<PrimaryTextField> {
         onChanged: (value) => widget.onChanged(value),
         obscureText: widget.isObscure,
         controller: null,
+       
         style: Theme.of(context)
             .textTheme
             .bodyLarge!

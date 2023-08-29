@@ -5,8 +5,8 @@ class Product {
   final double price;
   final String status;
   final String categoryName;
-  final String image;
-  List<Size> sizes;
+  final String imageUrl;
+  // List<Size> sizes;
 
   Product({
     required this.id,
@@ -15,12 +15,12 @@ class Product {
     required this.price,
     required this.status,
     required this.categoryName,
-    required this.image,
-    required this.sizes,
+    required this.imageUrl,
+    // required this.sizes,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    List<dynamic> sizesJson = json['sizes'];
+    // List<dynamic> sizesJson = json['sizes'];
     return Product(
       id: json['id'],
       name: json['name'],
@@ -28,8 +28,8 @@ class Product {
       price: json['price'].toDouble(),
       status: json['status'],
       categoryName: json['categoryName'],
-      image: json['image'],
-      sizes: sizesJson.map((sizeJson) => Size.fromJson(sizeJson)).toList(),
+      imageUrl: json['imageUrl'],
+      // sizes: sizesJson.map((sizeJson) => Size.fromJson(sizeJson)).toList(),
     );
   }
 }

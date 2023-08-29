@@ -47,7 +47,7 @@ class _BannerAdmobState extends State<BannerAdmob> {
     return _bannerReady
         ? SizedBox(
             width: _bannerAd.size.width.toDouble(),
-            height: 60,
+            height: 100,
             child: AdWidget(ad: _bannerAd),
           )
         : Container();

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../utils/dimensions.dart';
 import 'app_icon.dart';
 import 'big_text.dart';
-import 'dimensions.dart';
+
+
 
 class AccountWidget extends StatelessWidget {
   final AppIcon appIcon;

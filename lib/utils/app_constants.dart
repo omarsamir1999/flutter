@@ -3,7 +3,7 @@
 class AppConstants {
   static const String APP_NAME = "Anon";
   static const int APP_VERSION = 1;
-  static const String BASE_URL = "http://18.217.249.168:8080/api/v1/";
+  static const String BASE_URL = "http://18.118.26.112:8080/api/v1/";
   static const Map<String, String> headers = {
     "Content-Type": "application/json"
   };
@@ -13,9 +13,9 @@ class AppConstants {
   static const String LIST_ORDER = "orders";
   static const String LIST_ORDER_ADD = "listOrder/add";
   static const String REGISTER =
-      "http://18.217.249.168:8080/api/v1/auth/register";
+      "http://18.118.26.112:8080/api/v1/auth/register";
   static const String LOGIN =
-      "http://18.217.249.168:8080/api/v1/auth/authenticate";
+      "http://18.118.26.112:8080/api/v1/auth/authenticate";
   static const String USER = "user";
   static String TOKEN = "";
   static const String CART_LIST = "cart-list";

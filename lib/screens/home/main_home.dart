@@ -5,7 +5,7 @@ import '../../components/bottom_bar_custom.dart';
 import '../../constants/colors.dart';
 import '../order_page.dart';
 import '../profile_screen.dart';
-import 'cart_page.dart';
+import 'cart_screnss/cart_page.dart';
 import 'home_screens/home_screen.dart';
 import 'menu_page.dart';
 

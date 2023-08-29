@@ -1,4 +1,4 @@
-import 'package:elshodaa_mall/Widgets/small_text.dart';
+import 'package:elshodaa_mall/components/small_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class IconAndTextWidget extends StatelessWidget {

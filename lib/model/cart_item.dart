@@ -1,7 +1,7 @@
 class CartItem {
   final int productId;
   final String name;
-  final String image;
+  final String imageUrl;
   final double price;
   final int quantity;
   final String? units; // إضافة هذه الخاصية
@@ -10,7 +10,7 @@ class CartItem {
   CartItem({
     required this.productId,
     required this.name,
-    required this.image,
+    required this.imageUrl,
     required this.price,
     required this.quantity,
     this.units, // تحديد قيمتها هنا
@@ -22,7 +22,7 @@ class CartItem {
     return CartItem(
       productId: json['productId'],
       name: json['name'],
-      image: json['image'],
+      imageUrl: json['imageUrl'],
       price: json['price'].toDouble(),
       quantity: json['quantity'] ?? 1,
       units: json['units'], // استخراج الوحدات من JSON
@@ -35,7 +35,7 @@ class CartItem {
     return {
       'productId': productId,
       'name': name,
-      'image': image,
+      'imageUrl': imageUrl,
       'price': price,
       'quantity': quantity,
       'units': units, // تحويل الوحدات إلى JSON

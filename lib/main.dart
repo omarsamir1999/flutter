@@ -5,6 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   MobileAds.instance.initialize;
   runApp(const EcommerceAppIsaatech());
 }
@@ -17,7 +18,7 @@ class EcommerceAppIsaatech extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Isaatech Ecommerce',
+      title: 'ElShohdaa Mall',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         brightness: Brightness.light,

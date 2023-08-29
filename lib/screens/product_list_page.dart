@@ -123,7 +123,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
 
   Future<void> _searchProducts(String name, int page) async {
     String apiUrl =
-        'http://18.118.26.112:8080/api/v1/product/findByName/$name?page=$page';
+        'http://18.218.84.231:8080/api/v1/product/findByName/$name?page=$page&pageSize=500';
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -169,8 +169,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                 final product = _products[productIndex];
                 final name = product['name'];
                 final price = product['price'];
-                final imageBase64 = product['image'];
-                final imageBytes = base64Decode(imageBase64);
+                final image = product['imageUrl'];
 
                 return GestureDetector(
                   onTap: () {
@@ -222,8 +221,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                 ),
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
-                                  child: Image.memory(
-                                    imageBytes,
+                                  child: Image.network(
+                                    image,
                                     width: 160,
                                     height: 160,
                                     fit: BoxFit.cover,

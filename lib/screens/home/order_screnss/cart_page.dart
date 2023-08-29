@@ -7,11 +7,11 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import '../../constants/app_constants.dart';
-import '../../model/cart_item.dart';
-import '../ad_state.dart';
-import '../login.dart';
-import '../test.dart';
+import '../../../constants/app_constants.dart';
+import '../../../model/cart_item.dart';
+import '../../ad_state.dart';
+import '../../login.dart';
+import '../../test.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -101,7 +101,7 @@ class _CartScreenState extends State<CartScreen> {
           "details": cartItem.size ?? cartItem.units ?? ""
         });
       }
-      await connect.post('http://18.118.26.112:8080/api/v1/order', {
+      await connect.post('http://18.218.84.231:8080/api/v1/order', {
         "userId": prefs.getInt(AppConstants.PHONE),
         "orderItemDtoList": orderItems,
         "deliveryPrice": deliveryPrice,
@@ -132,7 +132,7 @@ class _CartScreenState extends State<CartScreen> {
 
     String token = _prefs.getString('token') ?? '';
     final url =
-        Uri.parse('http://18.118.26.112:8080/api/v1/user/coins?coins=$coins');
+        Uri.parse('http://18.218.84.231:8080/api/v1/user/coins?coins=$coins');
 
     final response = await http.put(
       url,
@@ -154,7 +154,7 @@ class _CartScreenState extends State<CartScreen> {
   void loadRewardedAd() {
     RewardedAd.load(
         adUnitId: Platform.isAndroid
-            ? "ca-app-pub-3666331986165105/2598676046"
+            ? "ca-app-pub-3940256099942544/5224354917"
             : "ca-app-pub-3940256099942544/5224354917",
         request: const AdRequest(),
         rewardedAdLoadCallback:
@@ -259,8 +259,8 @@ class _CartScreenState extends State<CartScreen> {
                       final cartItem = _cartItems[index];
                       double totalPrice = cartItem.price * cartItem.quantity;
                       return ListTile(
-                        leading: Image.memory(
-                          base64Decode(cartItem.image),
+                        leading: Image.network(
+                          cartItem.imageUrl,
                           fit: BoxFit.contain,
                           width: 100,
                           height: 200,

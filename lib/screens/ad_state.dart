@@ -9,7 +9,7 @@ class AdManager {
   void loadBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: Platform.isAndroid
-          ? "ca-app-pub-3940256099942544/6300978111"
+          ? "ca-app-pub-3666331986165105/7356153486"
           : "ca-app-pub-3666331986165105/7356153486",
       size: AdSize.banner,
       request: const AdRequest(),

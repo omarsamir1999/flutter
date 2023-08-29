@@ -4,12 +4,12 @@ import 'dart:convert';
 import '../model/product_model.dart';
 
 class ProductController {
-  final baseUrl = 'http://18.118.26.112:8080/api/v1/product';
+  final baseUrl = 'http://18.218.84.231:8080/api/v1/product';
 
   Future<List<Product>> fetchProductsBySubcategory(
       int subcategoryId, int page) async {
-    final response = await http.get(
-        Uri.parse('$baseUrl/subcategory/$subcategoryId?page=$page&pageSize=5'));
+    final response = await http.get(Uri.parse(
+        '$baseUrl/subcategory/$subcategoryId?page=$page&pageSize=10'));
 
     if (response.statusCode == 200) {
       final List<dynamic> responseData =

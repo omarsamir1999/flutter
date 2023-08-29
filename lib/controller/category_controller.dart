@@ -4,7 +4,7 @@ import '../model/category.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryController {
-  String apiUrl = 'http://18.217.249.168:8080/api/v1/category';
+  String apiUrl = 'http://18.218.84.231:8080/api/v1/category';
 
   Future<List<Category>> fetchCategories() async {
     final response = await http.get(Uri.parse(apiUrl));

@@ -38,7 +38,7 @@ class _OrderPageState extends State<OrderPage> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://18.118.26.112:8080/api/v1/order/pending/orderbyuser/${prefs.getInt(AppConstants.PHONE)}'),
+            'http://18.218.84.231:8080/api/v1/order/pending/orderbyuser/${prefs.getInt(AppConstants.PHONE)}'),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -63,7 +63,7 @@ class _OrderPageState extends State<OrderPage> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://18.118.26.112:8080/api/v1/order/delivered/orderbyuser/${prefs.getInt(AppConstants.PHONE)}'),
+            'http://18.218.84.231:8080/api/v1/order/delivered/orderbyuser/${prefs.getInt(AppConstants.PHONE)}'),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -198,7 +198,7 @@ class _OrderPageState extends State<OrderPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             child: Image.memory(
-                                              base64Decode(product['image']),
+                                              base64Decode(product['imageUrl']),
                                               fit: BoxFit.cover,
                                               width: 100,
                                               height: 100,
@@ -300,8 +300,8 @@ class _OrderPageState extends State<OrderPage> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8),
-                                          child: Image.memory(
-                                            base64Decode(product['image']),
+                                          child: Image.network(
+                                            product['imageUrl'],
                                             fit: BoxFit.cover,
                                             width: 72,
                                             height: 72,

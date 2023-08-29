@@ -10,7 +10,7 @@ import '../components/buttons.dart';
 import '../model/cart_item.dart';
 import '../model/product_model.dart';
 import 'ad_state.dart';
-import 'home/cart_page.dart';
+import 'home/cart_screnss/cart_page.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final int productId;
@@ -32,7 +32,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _quantity = 1;
   Future<Product> fetchProductById(int productId) async {
     final response = await http
-        .get(Uri.parse('http://18.217.249.168:8080/api/v1/product/$productId'));
+        .get(Uri.parse('http://18.218.84.231:8080/api/v1/product/$productId'));
     if (response.statusCode == 200) {
       final responseData = json.decode(utf8.decode(response.bodyBytes));
       return Product.fromJson(responseData);
@@ -57,7 +57,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     CartItem cartItem = CartItem(
       productId: product.id,
       name: product.name,
-      image: product.image,
+      imageUrl: product.imageUrl,
       price: product.price,
       quantity: quantity,
       units: selectedUnits, // قيمة الوحدات المختارة
@@ -116,8 +116,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(25),
-                                    child: Image.memory(
-                                      base64Decode(_product!.image),
+                                    child: Image.network(
+                                      _product!.imageUrl,
                                       fit: BoxFit.contain,
                                       height: 250,
                                       width: double.infinity,
@@ -191,69 +191,69 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           height: 0,
                                         ),
                                   const SizedBox(height: 16),
-                                  _product?.categoryName == "shop1" ||
-                                          _product?.categoryName == "zidan" ||
-                                          _product?.categoryName == "Cute" ||
-                                          _product?.categoryName == "frinds" ||
-                                          _product?.categoryName == "sila"
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              padding: const EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey[100],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)),
-                                              child: DropdownButton<String>(
-                                                underline: Container(),
-                                                value: size,
-                                                elevation: 8,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18,
-                                                    ),
-                                                items: _product!.sizes.map<
-                                                    DropdownMenuItem<String>>(
-                                                  (Size size) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: size.size,
-                                                      child: Text(
-                                                        size.size,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                    );
-                                                  },
-                                                ).toList(),
-                                                hint: const Text(
-                                                  "اختر الحجم",
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                onChanged: (String? value) {
-                                                  setState(() {
-                                                    size = value;
-                                                  });
-                                                },
-                                              ),
-                                            ).px(12).py(2.5),
-                                          ],
-                                        )
-                                      : const SizedBox(
-                                          height: 0,
-                                        ),
+                                  // _product?.categoryName == "shop1" ||
+                                  //         _product?.categoryName == "zidan" ||
+                                  //         _product?.categoryName == "Cute" ||
+                                  //         _product?.categoryName == "frinds" ||
+                                  //         _product?.categoryName == "sila"
+                                  //     ? Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.center,
+                                  //         children: [
+                                  //           Container(
+                                  //             padding: const EdgeInsets.all(10),
+                                  //             decoration: BoxDecoration(
+                                  //                 color: Colors.grey[100],
+                                  //                 borderRadius:
+                                  //                     BorderRadius.circular(
+                                  //                         25)),
+                                  //             child: DropdownButton<String>(
+                                  //               underline: Container(),
+                                  //               value: size,
+                                  //               elevation: 8,
+                                  //               style: Theme.of(context)
+                                  //                   .textTheme
+                                  //                   .bodyLarge!
+                                  //                   .copyWith(
+                                  //                     fontWeight:
+                                  //                         FontWeight.bold,
+                                  //                     fontSize: 18,
+                                  //                   ),
+                                  //               items: _product!.sizes.map<
+                                  //                   DropdownMenuItem<String>>(
+                                  //                 (Size size) {
+                                  //                   return DropdownMenuItem<
+                                  //                       String>(
+                                  //                     value: size.size,
+                                  //                     child: Text(
+                                  //                       size.size,
+                                  //                       textAlign:
+                                  //                           TextAlign.center,
+                                  //                     ),
+                                  //                   );
+                                  //                 },
+                                  //               ).toList(),
+                                  //               hint: const Text(
+                                  //                 "اختر الحجم",
+                                  //                 textAlign: TextAlign.right,
+                                  //                 style: TextStyle(
+                                  //                   color: Colors.black,
+                                  //                   fontSize: 16,
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                 ),
+                                  //               ),
+                                  //               onChanged: (String? value) {
+                                  //                 setState(() {
+                                  //                   size = value;
+                                  //                 });
+                                  //               },
+                                  //             ),
+                                  //           ).px(12).py(2.5),
+                                  //         ],
+                                  //       )
+                                  //     : const SizedBox(
+                                  //         height: 0,
+                                  //       ),
                                 ],
                               ),
                             ),

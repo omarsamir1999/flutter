@@ -59,7 +59,7 @@ class _AccountPageState extends State<AccountPage> {
 
     String token = _prefs.getString('token') ?? '';
 
-    final url = Uri.parse('http://18.118.26.112:8080/api/v1/user');
+    final url = Uri.parse('http://18.218.84.231:8080/api/v1/user');
     final response = await http.get(
       url,
       headers: {'Authorization': 'Bearer $token'},

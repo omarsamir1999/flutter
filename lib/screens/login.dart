@@ -59,8 +59,7 @@ class _LoginScreenState extends State<LoginScreen>
       isLoading = true;
     });
 
-    final url =
-        Uri.parse('http://18.217.249.168:8080/api/v1/auth/authenticate');
+    final url = Uri.parse('http://18.218.84.231:8080/api/v1/auth/authenticate');
     final body = jsonEncode({
       'email': email,
       'password': password,

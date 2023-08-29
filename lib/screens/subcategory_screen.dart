@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
+import 'package:elshodaa_mall/constants/colors.dart';
 import 'package:elshodaa_mall/screens/product_details_screen.dart';
 import 'package:elshodaa_mall/screens/product_list_page.dart';
 import 'package:elshodaa_mall/screens/test.dart';
@@ -13,6 +13,7 @@ import '../../controller/product_controller.dart';
 import '../../model/category.dart';
 import '../../model/product_model.dart';
 import 'ad_state.dart';
+import 'chat/chat_screen.dart';
 
 class MostPopularScreen extends StatefulWidget {
   final int categoryId;
@@ -45,11 +46,11 @@ class _MostPopularScreenState extends State<MostPopularScreen> {
   @override
   void initState() {
     super.initState();
-
-    fetchCategories();
     adManager.addAds(true, true, true);
+    fetchCategories();
+    adManager.showInterstitial();
     _bannerAd = BannerAd(
-        adUnitId: "ca-app-pub-3666331986165105/7356153486",
+        adUnitId: "ca-app-pub-3666331986165105/6072701400",
         size: AdSize.banner,
         listener: BannerAdListener(onAdLoaded: (_) {
           setState(() {
@@ -135,11 +136,11 @@ class _MostPopularScreenState extends State<MostPopularScreen> {
   void loadMoreProducts() {
     if (!isLoading && currentPage < totalPages) {
       int nextPage = currentPage + 1;
-      for (int i = 0; i < 10; i++) {
-        fetchProducts(subcategories[_selectedIndex].id, nextPage + i);
-      }
+
+      fetchProducts(subcategories[_selectedIndex].id, nextPage);
+
       setState(() {
-        currentPage = nextPage + 3;
+        currentPage = nextPage;
       });
     }
   }
@@ -147,10 +148,8 @@ class _MostPopularScreenState extends State<MostPopularScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        appBar: AppBar(),
+        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           _buildSubcategoryList(),
           const SizedBox(
             height: 16,
@@ -167,12 +166,34 @@ class _MostPopularScreenState extends State<MostPopularScreen> {
             child: Stack(
               children: [
                 _buildProductListView(),
+                widget.categoryId == 1
+                    ? Align(
+                        alignment: Alignment.bottomRight,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 500),
+                          margin: const EdgeInsets.all(16),
+                          child: FloatingActionButton(
+                            backgroundColor: CustomColors.customGrey,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPage(),
+                                ),
+                              );
+                              adManager.showInterstitial();
+                            },
+                            child: const Icon(Icons.message),
+                          ),
+                        ),
+                      )
+                    : const SizedBox(
+                        width: 0,
+                      )
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          )
+        ]));
   }
 
   Widget _buildSubcategoryList() {
@@ -308,8 +329,8 @@ class _MostPopularScreenState extends State<MostPopularScreen> {
                           ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(15),
-                            child: Image.memory(
-                              base64Decode(product.image),
+                            child: Image.network(
+                              product.imageUrl,
                               width: 160,
                               height: 160,
                               fit: BoxFit.contain,

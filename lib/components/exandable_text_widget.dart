@@ -1,8 +1,8 @@
-import 'package:elshodaa_mall/Widgets/small_text.dart';
+import 'package:elshodaa_mall/components/small_text.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/color.dart';
-import 'dimensions.dart';
+import '../utils/dimensions.dart';
 
 class ExpandableTextWidget extends StatefulWidget {
   final String text;
